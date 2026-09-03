@@ -1,0 +1,8 @@
+# Optional deep-learning stack — only needed for:
+#   - experiments/03_llm_layerwise.py  (GPT-2 small hidden states)
+#   - data/prepare_model_rdms.py       (torchvision / CLIP image embeddings)
+#
+# CPU-only wheels are fine; no CUDA required.
+torch>=2.0
+torchvision>=0.15
+transformers>=4.35

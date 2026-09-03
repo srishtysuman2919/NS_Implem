@@ -1,0 +1,8 @@
+*.pdf binary
+*.png binary
+*.npy binary
+*.npz binary
+*.mat binary
+*.hdf5 binary
+*.nii binary
+*.nii.gz binary

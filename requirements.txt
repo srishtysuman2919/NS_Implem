@@ -1,0 +1,22 @@
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+pandas>=2.0
+scikit-learn>=1.3
+tqdm>=4.65
+
+# Sanity-check the from-scratch implementations against a maintained library.
+rsatoolbox>=0.1.5
+
+# Handy for reading BOLD5000 / NSD / Pereira mat / NIfTI files when a public
+# copy is available. Small pure-Python wheels — safe for CPU-only installs.
+h5py>=3.9
+nibabel>=5.1
+
+# Notebook execution (optional; required only if you open the experiments as
+# notebooks instead of running them as scripts).
+jupyter
+
+# NOTE: torch / torchvision / transformers are in requirements-optional.txt
+# because they are only needed for the LLM layer-wise and vision-model RDM
+# steps, and they materially increase install size / time.

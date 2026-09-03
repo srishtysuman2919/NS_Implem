@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------------
+# NS_Implem — full env overlay (adds the CPU deep-learning stack)
+#
+# Apply on top of the base env created from environment.yml:
+#   conda env create -f environment.yml           # once
+#   conda env update -f environment-full.yml      # add torch / transformers
+#   conda activate ns-implem
+#
+# Torch is pinned to the CPU build via the pytorch channel to avoid pulling in
+# a multi-GB CUDA runtime — everything in this repo is designed to run on CPU.
+# -----------------------------------------------------------------------------
+name: ns-implem
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - pytorch>=2.0
+  - torchvision>=0.15
+  - cpuonly
+  - pip
+  - pip:
+      - transformers>=4.35
