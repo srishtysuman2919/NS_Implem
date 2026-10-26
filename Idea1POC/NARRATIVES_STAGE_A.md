@@ -3,9 +3,11 @@
 ## Status
 
 Update 2026-10-26: real inputs are built and the specification is frozen.
-- Config v1.5.0 frozen in local commit `57feb11` (not pushed), before any
-  brain-to-model fitting. Primary pool: 15 tasks / 19 segments (schema excluded:
-  no public word alignments). See the v1.5.0 changelog for every input decision.
+- Config v1.5.0 was frozen in commit `57feb11` and superseded before any
+  brain-to-model fitting by v1.5.1 (commit `dde57b8`; listener conditions of a
+  shared stimulus are pooled). Primary pool: 15 tasks / 19 segments (schema
+  excluded: no public word alignments). See the changelog for every input decision.
+- The first real primary run uses v1.5.1.
 - `narratives_download.py`: 1,242 first-exposure bilateral GIFTIs (146.7 GB).
 - `narratives_build_inputs.py`: per-scan BIDS timing evidence (identical within
   every task/condition, 621 scans), 0 ms Gentle-to-stimulus audio lag for all 17
@@ -58,6 +60,45 @@ contracts. They are not the gate config. Every consumed input needs an actual
 SHA256 pin; hashes establish byte identity, not scientific validity of labels or
 timing evidence. Human review of that evidence remains necessary.
 
+## Obtaining The Data
+
+No data is stored in this repository. Everything is public and is fetched into
+ignored local folders (about 150 GB for the primary pool).
+
+1. Metadata into `data/narratives_meta/`: `participants.tsv`, `participants.json`,
+   `dataset_description.json` and `README` from
+   `https://raw.githubusercontent.com/OpenNeuroDatasets/ds002345/1.1.4/`;
+   `task_meta.json`, `scan_exclude.json` and `event_meta.json` from
+   `https://raw.githubusercontent.com/snastase/narratives/master/code/`; and the
+   Glasser MMP fsaverage6 label files
+   `tpl-fsaverage6_hemi-{L,R}_desc-MMP_dseg.label.gii` from
+   `https://s3.amazonaws.com/fcp-indi/data/Projects/narratives/derivatives/afni-nosmooth/tpl-fsaverage6/`.
+   The first cell of `eda_narratives_processed.ipynb` downloads the metadata files.
+2. BOLD: first-exposure, bilateral, unsmoothed, denoised fsaverage6 surface data
+   (`derivatives/afni-nosmooth/sub-*/func/*_space-fsaverage6_hemi-{L,R}_desc-clean.func.gii`)
+   from the public `fcp-indi` S3 bucket. The resumable downloader selects scans
+   with the same first-exposure and exclusion policy as preparation:
+
+   ```powershell
+   python -B Idea1POC/narratives_download.py --tasks pieman shapesphysical shapessocial notthefallintact milkyway bronx forgot black prettymouth sherlock merlin 21styear tunnel slumlordreach lucy
+   ```
+
+3. Stimuli, timing evidence, features and the hash-pinned preparation config:
+   `narratives_build_inputs.py` downloads BIDS event files, stimulus WAVs, Gentle
+   word alignments and the TemplateFlow fsaverage6 sphere, then builds everything
+   under `data/narratives_stage_a/`. Run its steps in order:
+
+   ```powershell
+   python -B Idea1POC/narratives_build_inputs.py evidence
+   python -B Idea1POC/narratives_build_inputs.py stimuli
+   python -B Idea1POC/narratives_build_inputs.py offsets
+   python -B Idea1POC/narratives_build_inputs.py features
+   python -B Idea1POC/narratives_build_inputs.py config
+   ```
+
+   The `features` step needs pretrained GPT-2 weights available locally
+   (Hugging Face `gpt2`, revision `607a30d783dfa663caf39e06633721c8d4cfcd7e`).
+
 ## Local Workflow
 
 Run from the repository root in the `ns-implem` environment:
@@ -92,8 +133,8 @@ story identity, original TRs, timing, pretrained model and baseline sources.
 python -B Idea1POC/narratives_stage_a.py --dataset <final/dataset.json> --config Idea1POC/narratives_gate_config.json --check-inputs
 ```
 
-Input checks do not freeze or run the experiment. Review the draft v1.4.0 config,
-then freeze and commit it before a real run; the assistant has not committed it.
+Input checks do not freeze or run the experiment. Review the config, then freeze
+and commit it before a real run.
 The CLI refuses placeholder freeze/commit fields and existing result paths.
 The timezone-aware freeze time must be in the past. Commit the frozen config
 and the three engine modules, then record that full commit ID in

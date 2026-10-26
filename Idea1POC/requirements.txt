@@ -1,0 +1,8 @@
+numpy>=1.26
+pandas>=2.0
+torch>=2.1
+transformers>=4.40
+peft>=0.10
+datasets>=2.18
+accelerate>=0.28
+osfclient>=0.0.5

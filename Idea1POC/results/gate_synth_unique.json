@@ -1,0 +1,112 @@
+{
+  "n_samples": 882,
+  "n_lang": 6,
+  "n_md": 20,
+  "features": "data/synth_unique/features/layer12.npy",
+  "lags": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "A_encoding": {
+    "r_lang_per_froi": {
+      "LANG_AngG": 0.8553,
+      "LANG_AntTemp": 0.8876,
+      "LANG_IFG": 0.8653,
+      "LANG_IFGorb": 0.8652,
+      "LANG_MFG": 0.8475,
+      "LANG_PostTemp": 0.8619
+    },
+    "r_md_per_froi": {
+      "MD_LHACC": 0.8152,
+      "MD_LHAntPar": 0.7615,
+      "MD_LHIFGop": 0.7971,
+      "MD_LHInsula": 0.8292,
+      "MD_LHMFG": 0.7627,
+      "MD_LHMFGorb": 0.8171,
+      "MD_LHMidPar": 0.8161,
+      "MD_LHPostPar": 0.82,
+      "MD_LHPrecG": 0.8339,
+      "MD_LHSFG": 0.8156,
+      "MD_RHACC": 0.8131,
+      "MD_RHAntPar": 0.7978,
+      "MD_RHIFGop": 0.8114,
+      "MD_RHInsula": 0.832,
+      "MD_RHMFG": 0.7855,
+      "MD_RHMFGorb": 0.8539,
+      "MD_RHMidPar": 0.8055,
+      "MD_RHPostPar": 0.8123,
+      "MD_RHPrecG": 0.8339,
+      "MD_RHSFG": 0.8056
+    },
+    "r_lang_mean": 0.8637762319512118,
+    "r_md_mean": 0.8109588406180611,
+    "nc_lang_mean": 0.9220814318491621,
+    "nc_md_mean": 0.844289131775278,
+    "r_over_nc_lang": 0.9368581514609469,
+    "r_over_nc_md": 0.9606807020771366
+  },
+  "B_overlap": {
+    "corr_actual_meanLANG_meanMD": 0.628269044398836,
+    "corr_pred_meanLANG_meanMD": 0.6492301745876252
+  },
+  "C_variance_partition_MD": {
+    "R2_features_mean": 0.6573073162436647,
+    "R2_langBOLD_mean": 0.08556524268210793,
+    "R2_both_mean": 0.6663582022934118,
+    "shared_mean": 0.07651435663236081,
+    "unique_features_mean": 0.580792959611304,
+    "unique_fraction_of_R2_features": 0.8835942416256375
+  },
+  "D_residual_MD": {
+    "r_md_residual_per_froi": {
+      "MD_LHACC": 0.7955,
+      "MD_LHAntPar": 0.7448,
+      "MD_LHIFGop": 0.743,
+      "MD_LHInsula": 0.7837,
+      "MD_LHMFG": 0.7264,
+      "MD_LHMFGorb": 0.787,
+      "MD_LHMidPar": 0.7295,
+      "MD_LHPostPar": 0.7981,
+      "MD_LHPrecG": 0.7972,
+      "MD_LHSFG": 0.7896,
+      "MD_RHACC": 0.7684,
+      "MD_RHAntPar": 0.7743,
+      "MD_RHIFGop": 0.7768,
+      "MD_RHInsula": 0.7888,
+      "MD_RHMFG": 0.7546,
+      "MD_RHMFGorb": 0.8367,
+      "MD_RHMidPar": 0.7792,
+      "MD_RHPostPar": 0.7973,
+      "MD_RHPrecG": 0.7892,
+      "MD_RHSFG": 0.7972
+    },
+    "r_md_residual_mean": 0.7778655712717748,
+    "r_md_raw_mean": 0.8109588406180611,
+    "retained_fraction": 0.959192418050385
+  },
+  "D_residual_LANG": {
+    "r_lang_residual_mean": 0.7683092323971866,
+    "retained_fraction": 0.8894771631555876
+  },
+  "E_weight_subspace": {
+    "cos_principal_angles": [
+      0.7963,
+      0.6545,
+      0.6096,
+      0.5098,
+      0.4501
+    ],
+    "mean_cos": 0.6040787381115365
+  },
+  "F_permutation": {
+    "null_mean": -0.000930030685584127,
+    "null_95": 0.01268692669651815,
+    "observed": 0.7778655712717748,
+    "p_value": 0.0196078431372549
+  },
+  "verdict": [
+    "MD has a substantial unique component -> GO: region-specific misalignment is well-posed."
+  ]
+}

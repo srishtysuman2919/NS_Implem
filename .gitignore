@@ -13,3 +13,10 @@ results/*.png
 results/*.csv
 results/*.npy
 !results/.gitkeep
+
+# Public datasets and derived inputs are fetched locally; see Idea1POC/NARRATIVES_STAGE_A.md.
+ds002345-fmriprep/
+data/narratives_meta/
+data/narratives_stage_a/
+Idea1POC/data/
+Idea1POC/features/

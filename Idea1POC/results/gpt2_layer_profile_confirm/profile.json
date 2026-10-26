@@ -1,0 +1,134 @@
+[
+  {
+    "layer": 1,
+    "r_lang": 0.17911521619445916,
+    "r_md": 0.09332939311609081,
+    "r_md_residual": 0.050424633347636375,
+    "md_retained_fraction": 0.5402867378009631,
+    "r_lang_residual": 0.09065491246492548,
+    "subspace_mean_cos": 0.6238024318966756,
+    "p_md_residual": 0.01,
+    "q_md_residual_fdr": 0.013333333333333332
+  },
+  {
+    "layer": 2,
+    "r_lang": 0.1645357552463758,
+    "r_md": 0.08122621085144019,
+    "r_md_residual": 0.04334643041841434,
+    "md_retained_fraction": 0.533650775581461,
+    "r_lang_residual": 0.10604273939523705,
+    "subspace_mean_cos": 0.6580725938167762,
+    "p_md_residual": 0.01,
+    "q_md_residual_fdr": 0.013333333333333332
+  },
+  {
+    "layer": 3,
+    "r_lang": 0.15248349420670962,
+    "r_md": 0.08889095243763565,
+    "r_md_residual": 0.06220580567008001,
+    "md_retained_fraction": 0.6997990680066403,
+    "r_lang_residual": 0.10856475757301305,
+    "subspace_mean_cos": 0.6235355348965521,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 4,
+    "r_lang": 0.1540122138912444,
+    "r_md": 0.0898589273708387,
+    "r_md_residual": 0.037559121181003775,
+    "md_retained_fraction": 0.4179787393410683,
+    "r_lang_residual": 0.11627026046794763,
+    "subspace_mean_cos": 0.6218323590802861,
+    "p_md_residual": 0.035,
+    "q_md_residual_fdr": 0.035
+  },
+  {
+    "layer": 5,
+    "r_lang": 0.157842737969729,
+    "r_md": 0.0838648394312547,
+    "r_md_residual": 0.053484230262758115,
+    "md_retained_fraction": 0.6377431904177193,
+    "r_lang_residual": 0.09395106743139693,
+    "subspace_mean_cos": 0.6135531498557465,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 6,
+    "r_lang": 0.1531979547118627,
+    "r_md": 0.06895387816383275,
+    "r_md_residual": 0.038332372060963536,
+    "md_retained_fraction": 0.5559132144806525,
+    "r_lang_residual": 0.1112858813179078,
+    "subspace_mean_cos": 0.5842842449917501,
+    "p_md_residual": 0.02,
+    "q_md_residual_fdr": 0.021818181818181816
+  },
+  {
+    "layer": 7,
+    "r_lang": 0.14840213064342572,
+    "r_md": 0.0666048217136659,
+    "r_md_residual": 0.04383198764987356,
+    "md_retained_fraction": 0.6580903082108268,
+    "r_lang_residual": 0.11291668494807226,
+    "subspace_mean_cos": 0.6051588346585398,
+    "p_md_residual": 0.015,
+    "q_md_residual_fdr": 0.018
+  },
+  {
+    "layer": 8,
+    "r_lang": 0.1498499670110464,
+    "r_md": 0.08716586869418065,
+    "r_md_residual": 0.055081518086997724,
+    "md_retained_fraction": 0.6319161262563665,
+    "r_lang_residual": 0.0918078755327304,
+    "subspace_mean_cos": 0.5907442391957771,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 9,
+    "r_lang": 0.1340116434592342,
+    "r_md": 0.0986522686412663,
+    "r_md_residual": 0.07837454553220781,
+    "md_retained_fraction": 0.7944525413521376,
+    "r_lang_residual": 0.08624254070159122,
+    "subspace_mean_cos": 0.6634200339472537,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 10,
+    "r_lang": 0.09895816150782717,
+    "r_md": 0.09150177949947727,
+    "r_md_residual": 0.058954841354940356,
+    "md_retained_fraction": 0.6443026756138349,
+    "r_lang_residual": 0.07976258163775271,
+    "subspace_mean_cos": 0.6614046035648357,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 11,
+    "r_lang": 0.11381437305247238,
+    "r_md": 0.08750006756086265,
+    "r_md_residual": 0.06548714538845833,
+    "md_retained_fraction": 0.748423940849043,
+    "r_lang_residual": 0.0640124484266083,
+    "subspace_mean_cos": 0.6375057041005322,
+    "p_md_residual": 0.005,
+    "q_md_residual_fdr": 0.01
+  },
+  {
+    "layer": 12,
+    "r_lang": 0.09432871161233165,
+    "r_md": 0.0806589388223933,
+    "r_md_residual": 0.04506855767311138,
+    "md_retained_fraction": 0.5587546567200685,
+    "r_lang_residual": 0.06390789683420645,
+    "subspace_mean_cos": 0.5697145791604817,
+    "p_md_residual": 0.01,
+    "q_md_residual_fdr": 0.013333333333333332
+  }
+]

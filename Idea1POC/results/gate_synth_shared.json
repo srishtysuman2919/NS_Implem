@@ -1,0 +1,112 @@
+{
+  "n_samples": 882,
+  "n_lang": 6,
+  "n_md": 20,
+  "features": "data/synth_shared/features/layer12.npy",
+  "lags": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "A_encoding": {
+    "r_lang_per_froi": {
+      "LANG_AngG": 0.8466,
+      "LANG_AntTemp": 0.8776,
+      "LANG_IFG": 0.8793,
+      "LANG_IFGorb": 0.8687,
+      "LANG_MFG": 0.8754,
+      "LANG_PostTemp": 0.8603
+    },
+    "r_md_per_froi": {
+      "MD_LHACC": 0.3686,
+      "MD_LHAntPar": 0.3609,
+      "MD_LHIFGop": 0.402,
+      "MD_LHInsula": 0.4196,
+      "MD_LHMFG": 0.4397,
+      "MD_LHMFGorb": 0.4585,
+      "MD_LHMidPar": 0.3852,
+      "MD_LHPostPar": 0.4457,
+      "MD_LHPrecG": 0.3945,
+      "MD_LHSFG": 0.3687,
+      "MD_RHACC": 0.3422,
+      "MD_RHAntPar": 0.3843,
+      "MD_RHIFGop": 0.4081,
+      "MD_RHInsula": 0.323,
+      "MD_RHMFG": 0.3032,
+      "MD_RHMFGorb": 0.3483,
+      "MD_RHMidPar": 0.391,
+      "MD_RHPostPar": 0.391,
+      "MD_RHPrecG": 0.336,
+      "MD_RHSFG": 0.388
+    },
+    "r_lang_mean": 0.8679813430205425,
+    "r_md_mean": 0.38293087772543305,
+    "nc_lang_mean": 0.9205504812773816,
+    "nc_md_mean": 0.5773666631322173,
+    "r_over_nc_lang": 0.942956469412084,
+    "r_over_nc_md": 0.663679283919518
+  },
+  "B_overlap": {
+    "corr_actual_meanLANG_meanMD": 0.9225917570209387,
+    "corr_pred_meanLANG_meanMD": 0.9345078003626442
+  },
+  "C_variance_partition_MD": {
+    "R2_features_mean": 0.13635127794592955,
+    "R2_langBOLD_mean": 0.32947194163168203,
+    "R2_both_mean": 0.030930006060277425,
+    "shared_mean": 0.4348932135173341,
+    "unique_features_mean": -0.29854193557140457,
+    "unique_fraction_of_R2_features": 0.0
+  },
+  "D_residual_MD": {
+    "r_md_residual_per_froi": {
+      "MD_LHACC": -0.0207,
+      "MD_LHAntPar": -0.0633,
+      "MD_LHIFGop": -0.0417,
+      "MD_LHInsula": 0.0272,
+      "MD_LHMFG": 0.0154,
+      "MD_LHMFGorb": 0.0477,
+      "MD_LHMidPar": -0.0035,
+      "MD_LHPostPar": 0.0424,
+      "MD_LHPrecG": -0.0323,
+      "MD_LHSFG": -0.0632,
+      "MD_RHACC": -0.0433,
+      "MD_RHAntPar": -0.0065,
+      "MD_RHIFGop": -0.0178,
+      "MD_RHInsula": -0.0598,
+      "MD_RHMFG": -0.0848,
+      "MD_RHMFGorb": -0.0627,
+      "MD_RHMidPar": -0.0941,
+      "MD_RHPostPar": -0.0193,
+      "MD_RHPrecG": -0.0807,
+      "MD_RHSFG": -0.0028
+    },
+    "r_md_residual_mean": -0.02819516305643314,
+    "r_md_raw_mean": 0.38293087772543305,
+    "retained_fraction": -0.07362990214816127
+  },
+  "D_residual_LANG": {
+    "r_lang_residual_mean": 0.8139387302220649,
+    "retained_fraction": 0.9377375870656258
+  },
+  "E_weight_subspace": {
+    "cos_principal_angles": [
+      0.9551,
+      0.3344,
+      0.2891,
+      0.2679,
+      0.2127
+    ],
+    "mean_cos": 0.4118491565039932
+  },
+  "F_permutation": {
+    "null_mean": -0.0006744406487992405,
+    "null_95": 0.013461044799252593,
+    "observed": -0.02819516305643314,
+    "p_value": 1.0
+  },
+  "verdict": [
+    "MD residual (after removing LANG) is NOT significantly predictable -> MD info is shared with LANG -> NO-GO for clean region-specific misalignment; consider reframing as 'shared vs unique alignment' study."
+  ]
+}

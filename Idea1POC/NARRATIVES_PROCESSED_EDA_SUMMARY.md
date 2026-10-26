@@ -21,24 +21,24 @@ certify that engine or its outstanding diagnostics/sensitivities.
 
 The Step 10 checks informed the historical `v1.2.0` draft below; they did not lock the config or verify the unimplemented Stage A pipeline. Power figures below are approximate planning calculations, not measured permutation/FDR power.
 
-1. **Gate 2 & Gate 3 Decision Rules Aligned With Actual Power (Point 1 Fixed):**
+1. **Gate 2 & Gate 3 Decision Rules Aligned With Actual Power:**
    - At $T_{\text{eff}} = 2,270.8$ (Regime C, 16 intact tasks), the standard error of a correlation is $\text{SE}_r \approx \frac{1}{\sqrt{2270.8 - 3}} = \mathbf{0.0210}$, and the two-sided $\alpha = 0.05$ critical value is **$r_{\text{crit}} = 0.0411$**.
    - Previously, requiring $r_{\text{obs}} \ge 0.060$ meant that if the true effect was $r_{\text{true}} = 0.0625$, the observed correlation would clear $0.060$ only **$54.7\%$** of the time!
    - In `v1.2.0`, **Gate 2** gates on **`permutation q < 0.05 AND observed r >= 0.04`** (with explicit verdict bands: `NO_GO` if $q \ge 0.05$ or $r < 0.04$; `SUBTLE_GO` if $0.04 \le r < 0.06$ with $q < 0.05$; `GO` if $r \ge 0.06$ with $q < 0.05$). Under this rule, pass probability is **$84.5\%$** at $r_{\text{true}} = 0.0625$ and **$96.0\%\text{--}97.4\%$** at $r_{\text{true}} = 0.078\text{--}0.082$.
    - **Gate 3** replaces the fixed $\Delta r$ threshold with a **clustered paired bootstrap over stories** (circular blocks $\ge 10\text{ TRs}$ within story, $B = 10,000$), passing if the **95% CI lower bound for $\Delta r = r_{\text{GPT2}}(\text{MD}_{\text{resid}}) - r_{\text{comparator}}(\text{MD}_{\text{resid}})$ exceeds $0$**, alongside a 4-rung comparator claim ladder.
 
-2. **Cross-Half Disattenuation Uncertainty at $N = 5$ per Half — Why We Do Not Claim "$>90\%$ Unexplained" (Point 2 Fixed):**
-   - On a 10-subject sample (`pieman`), splitting into two halves of $N_{\text{half}} = 5$ yields theoretical half-sample variance reliabilities (from pairwise $\hat{\rho}$) of **$\text{NC}_{\text{var}}(5) = 0.189$ (`LANG`)** and **$\text{NC}_{\text{var}}(5) = 0.105$ (`MD`)** (matching your `0.19` and `0.10` derivation).
-   - Because the attenuation denominator $\sqrt{\text{NC}_{\text{var, LANG}}(5) \cdot \text{NC}_{\text{var, MD}}(5)} = \mathbf{0.141}$ is small, dividing any cross-half correlation by $0.141$ amplifies estimation noise by **$7.1\times$**. Across $K=20$ random 5-vs-5 splits in Cell 22, the raw cross-half network-mean correlation was $-0.018 \pm 0.031$ and the disattenuated value was $-0.130 \pm 0.218$. This interval is too wide to estimate how much reliable `MD` variance `LANG` explains. It is also inconsistent with the reviewer's rough estimate of $0.5\text{--}0.6$, so that question remains open until the full cohorts are used.
+2. **Cross-Half Disattenuation Uncertainty at $N = 5$ per Half — Why We Do Not Claim "$>90\%$ Unexplained":**
+   - On a 10-subject sample (`pieman`), splitting into two halves of $N_{\text{half}} = 5$ yields theoretical half-sample variance reliabilities (from pairwise $\hat{\rho}$) of **$\text{NC}_{\text{var}}(5) = 0.189$ (`LANG`)** and **$\text{NC}_{\text{var}}(5) = 0.105$ (`MD`)**.
+   - Because the attenuation denominator $\sqrt{\text{NC}_{\text{var, LANG}}(5) \cdot \text{NC}_{\text{var, MD}}(5)} = \mathbf{0.141}$ is small, dividing any cross-half correlation by $0.141$ amplifies estimation noise by **$7.1\times$**. Across $K=20$ random 5-vs-5 splits in Cell 22, the raw cross-half network-mean correlation was $-0.018 \pm 0.031$ and the disattenuated value was $-0.130 \pm 0.218$. This interval is too wide to estimate how much reliable `MD` variance `LANG` explains. It is also inconsistent with an earlier rough planning estimate of $0.5\text{--}0.6$, so that question remains open until the full cohorts are used.
    - Therefore, we **remove the "$>90\%$ unexplained" claim** and use $K=20$ random cross-half splits across the full subject cohorts of all 16 stories in Stage A.
 
-3. **Single-Story ($N = 10$) Vertex $\hat{\rho} > 0.015$ Is Near Chance — Out-of-Fold Pooled Circular-Shift BH-FDR Required (Point 3 Fixed):**
+3. **Single-Story ($N = 10$) Vertex $\hat{\rho} > 0.015$ Is Near Chance — Out-of-Fold Pooled Circular-Shift BH-FDR Required:**
    - In Cell 22, we generated $n_{\text{null}} = 200$ independent within-subject circular-shift nulls across the 3,405 LH `MD` vertices on `pieman` ($N=10, T=266$).
-   - The empirical null SE of a single vertex's $\hat{\rho}$ was **$0.0105$**, about half the reviewer's estimate of $0.02$. Under the null, **$8.2\%$** of vertices exceeded $0.015$, compared with **$25.9\%$** of observed `MD` vertices, which is about $3\times$ enrichment rather than chance.
+   - The empirical null SE of a single vertex's $\hat{\rho}$ was **$0.0105$**, about half the earlier planning estimate of $0.02$. Under the null, **$8.2\%$** of vertices exceeded $0.015$, compared with **$25.9\%$** of observed `MD` vertices, which is about $3\times$ enrichment rather than chance.
    - Even so, **0 of 3,405 `MD` vertices survive BH-FDR $q < 0.05$** on one story. This is partly a resolution limit: with 200 shifts, the smallest possible $p$ is $1/201 \approx 0.005$, which BH over 3,405 tests can rarely pass.
    - Thus, the single-story $N=10$ count (`882` vertices with $\hat{\rho} > 0.015$) is **not** quoted as evidence of reliable vertex counts. Instead, `v1.2.0` mandates that vertex selection in Stage A is computed **strictly inside training folds by pooling $\hat{\rho}$ across all training stories weighted by $T_{\text{eff}, s}$**, and requiring **both BH-FDR $q < 0.05$ (against $\ge 200$ circular shifts) and $\hat{\rho}_{\text{pooled}} \ge 0.015$**.
 
-4. **Reconciling Shain's `0.377` vs. Narratives' `0.644` Ceiling Definition (Point 4 Resolved):**
+4. **Reconciling Shain's `0.377` vs. Narratives' `0.644` Ceiling Definition:**
    - Inspecting [Idea1POC/01_prepare_data.py](01_prepare_data.py#L254) and [Idea1POC/common.py](common.py#L174) revealed why the two ceilings looked $2\times$ apart:
      - `01_prepare_data.py` computed Shain's noise ceiling via `spearman_brown(r_half) = 2 * r_half / (1 + r_half)` **without taking the square root**. That quantity is the **variance reliability ($\text{NC}_{\text{var}} = 0.3768$)**, whereas its **correlation ceiling is $\text{NC}_r = \sqrt{0.3768} = \mathbf{0.614}$**.
      - In Narratives (Regime C, 16 tasks), the $T_{\text{eff}}$-weighted mean **variance reliability is $\overline{\text{NC}}_{\text{var}} = \mathbf{0.421}$** and the **correlation ceiling is $\overline{\text{NC}}_r = \sqrt{\text{NC}_{\text{var}}} = \mathbf{0.644}$**.
@@ -47,7 +47,7 @@ The Step 10 checks informed the historical `v1.2.0` draft below; they did not lo
      - Under $\text{NC}_{\text{var}}$: Shain's Layer 9 residual `MD` is $r / \text{NC}_{\text{var}} = 0.0784 / 0.3768 = \mathbf{0.208}$.
      - Because Narratives' group ceiling ($\overline{\text{NC}}_{\text{var}} = 0.421, \overline{\text{NC}}_r = 0.644$) is slightly higher than Shain's ($\text{NC}_{\text{var}} = 0.377, \text{NC}_r = 0.614$), transferring Shain's effect predicts $r_{\text{expected}} \approx 0.082$ (or $0.060\text{--}0.082$ after accounting for group-atlas vs. individual-localizer dilution). In `v1.2.0`, we report **both $r / \text{NC}_r$ and $r / \text{NC}_{\text{var}}$** so comparisons with Shain are unambiguous.
 
-5. **Versioned Changelog & Pre-Declared Primary Layer 9 (Point 5 Fixed):**
+5. **Versioned Changelog & Pre-Declared Primary Layer 9:**
    - [Idea1POC/narratives_gate_config.json](narratives_gate_config.json) is now versioned at **`1.3.0`**, superseding `1.2.0`, with a dated Gate 1 rationale. It proposes **GPT-2 Layer 9** as the sole primary gating layer (Layers 6 & 12 report-only). Freeze timestamp and commit hash remain placeholders; the specification is not yet frozen or implemented.
 
 ---

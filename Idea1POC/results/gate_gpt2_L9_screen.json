@@ -1,0 +1,113 @@
+{
+  "n_samples": 1347,
+  "n_lang": 6,
+  "n_md": 20,
+  "features": "features/gpt2_base/layer9.npy",
+  "lags": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "A_encoding": {
+    "r_lang_per_froi": {
+      "LANG_LangLAngG": 0.0414,
+      "LANG_LangLAntTemp": 0.0058,
+      "LANG_LangLIFG": -0.0448,
+      "LANG_LangLIFGorb": -0.0051,
+      "LANG_LangLMFG": -0.0163,
+      "LANG_LangLPostTemp": -0.0201
+    },
+    "r_md_per_froi": {
+      "MD_MDlanglocLAntPar": -0.0245,
+      "MD_MDlanglocLIFGop": -0.0037,
+      "MD_MDlanglocLInsula": 0.0088,
+      "MD_MDlanglocLMFG": -0.0063,
+      "MD_MDlanglocLMFGorb": 0.0704,
+      "MD_MDlanglocLMidPar": 0.026,
+      "MD_MDlanglocLPostPar": -0.0102,
+      "MD_MDlanglocLPrecG": -0.0041,
+      "MD_MDlanglocLSFG": 0.0598,
+      "MD_MDlanglocLmPFC": -0.0064,
+      "MD_MDlanglocRAntPar": 0.05,
+      "MD_MDlanglocRIFGop": 0.0062,
+      "MD_MDlanglocRInsula": -0.0004,
+      "MD_MDlanglocRMFG": -0.0077,
+      "MD_MDlanglocRMFGorb": 0.0089,
+      "MD_MDlanglocRMidPar": -0.0213,
+      "MD_MDlanglocRPostPar": 0.0811,
+      "MD_MDlanglocRPrecG": -0.0113,
+      "MD_MDlanglocRSFG": 0.0132,
+      "MD_MDlanglocRmPFC": -0.0351
+    },
+    "r_lang_mean": -0.0065046900244435275,
+    "r_md_mean": 0.009668801664084846,
+    "nc_lang_mean": 0.635467838817032,
+    "nc_md_mean": 0.37679198745702314,
+    "r_over_nc_lang": -0.009540158164923115,
+    "r_over_nc_md": 0.03320924340982065
+  },
+  "B_overlap": {
+    "corr_actual_meanLANG_meanMD": -0.32569763514572,
+    "corr_pred_meanLANG_meanMD": -0.41954538720801055
+  },
+  "C_variance_partition_MD": {
+    "R2_features_mean": -8.86377050945363,
+    "R2_langBOLD_mean": 0.10243452466903089,
+    "R2_both_mean": -2.5211409685145174,
+    "shared_mean": -6.240195016270082,
+    "unique_features_mean": -2.6235754931835484,
+    "unique_fraction_of_R2_features": 0.0
+  },
+  "D_residual_MD": {
+    "r_md_residual_per_froi": {
+      "MD_MDlanglocLAntPar": -0.0378,
+      "MD_MDlanglocLIFGop": -0.0228,
+      "MD_MDlanglocLInsula": 0.0005,
+      "MD_MDlanglocLMFG": -0.0286,
+      "MD_MDlanglocLMFGorb": 0.1811,
+      "MD_MDlanglocLMidPar": -0.0128,
+      "MD_MDlanglocLPostPar": -0.0118,
+      "MD_MDlanglocLPrecG": -0.007,
+      "MD_MDlanglocLSFG": 0.0645,
+      "MD_MDlanglocLmPFC": 0.0525,
+      "MD_MDlanglocRAntPar": -0.0254,
+      "MD_MDlanglocRIFGop": 0.0574,
+      "MD_MDlanglocRInsula": -0.0006,
+      "MD_MDlanglocRMFG": 0.0068,
+      "MD_MDlanglocRMFGorb": 0.0492,
+      "MD_MDlanglocRMidPar": -0.0127,
+      "MD_MDlanglocRPostPar": 0.0962,
+      "MD_MDlanglocRPrecG": -0.0015,
+      "MD_MDlanglocRSFG": 0.0114,
+      "MD_MDlanglocRmPFC": -0.0142
+    },
+    "r_md_residual_mean": 0.017213129231337294,
+    "r_md_raw_mean": 0.009668801664084846,
+    "retained_fraction": 1.7802753463519847
+  },
+  "D_residual_LANG": {
+    "r_lang_residual_mean": 0.01559122356257804,
+    "retained_fraction": 1559122.356257804
+  },
+  "E_weight_subspace": {
+    "cos_principal_angles": [
+      0.6264,
+      0.5006,
+      0.417,
+      0.2859,
+      0.259
+    ],
+    "mean_cos": 0.41778864399966836
+  },
+  "F_permutation": {
+    "null_mean": 0.006225437082936987,
+    "null_95": 0.02228929705160102,
+    "observed": 0.017213129231337294,
+    "p_value": 0.15
+  },
+  "verdict": [
+    "MD barely predictable from LM features during passive listening -> weak signal to misalign.",
+    "MD residual (after removing LANG) is NOT significantly predictable -> MD info is shared with LANG -> NO-GO for clean region-specific misalignment; consider reframing as 'shared vs unique alignment' study."
+  ]
+}

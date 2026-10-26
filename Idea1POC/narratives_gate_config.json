@@ -4,7 +4,7 @@
   "supersedes": "1.5.0",
   "last_revised_date": "2026-10-26",
   "frozen_at": "2026-10-26T22:03:56+05:30",
-  "git_commit_before_first_run": "<commit hash, fill when committed>",
+  "git_commit_before_first_run": "dde57b8a8094822a0f9be862231bcdd13db0dca5",
   "freeze_rule": "Freeze and commit this specification before the first real narratives_stage_a.py analysis. Synthetic software tests and read-only input checks are not scientific runs. Any later decision-rule change needs a new version, dated reason, and preservation of earlier results.",
 
   "changelog": [
