@@ -1,0 +1,265 @@
+{
+  "_status": "UNFROZEN v1.5.0. Real inputs built (15-task pool, verified timing, GPT-2 layer-9 and nine-column comparator features); no real Stage A analysis has been run. Freeze and commit before the first real run.",
+  "version": "1.5.0",
+  "supersedes": "1.4.0",
+  "last_revised_date": "2026-10-26",
+  "frozen_at": "2026-10-26T21:50:05+05:30",
+  "git_commit_before_first_run": "<commit hash, fill when committed>",
+  "freeze_rule": "Freeze and commit this specification before the first real narratives_stage_a.py analysis. Synthetic software tests and read-only input checks are not scientific runs. Any later decision-rule change needs a new version, dated reason, and preservation of earlier results.",
+
+  "changelog": [
+    {
+      "version": "1.5.0",
+      "date": "2026-10-26",
+      "note": "Before any real Narratives Stage A analysis (input building only; no brain-to-model fitting run). (a) Primary pool becomes the 15-task Regime B: schema is excluded because the public stimuli provide no schema transcripts or word alignments, and its story onsets are participant-specific and not TR-locked. (b) shapesphysical and shapessocial form one CV family 'shapes' (same animation and audio length, participants heard both). milkyway conditions (original/vodka/synonyms) and prettymouth conditions (affair/paranoia) are separate segments within their task family; slumlordreach is two segments in one family. (c) Word timing: Gentle 'success' words converted to story time with t = t_gentle + audio lag + first BIDS event onset - event_meta onset x 1.5 s. Audio lag measured as 0 ms for all 17 stimulus files (waveform cross-correlation, Bronx r~0.89 from a differently processed copy, all others r>=0.999). Per-scan events.tsv timing is identical within every task/condition across all 621 selected scans. Words outside the story event are dropped; a word whose Gentle onset precedes the previous word's end (<=20 ms in all but 3 cases) keeps its end and has its onset trimmed. (d) A TR whose causal 5-TR window contains no completed words gets a zero GPT-2 vector (40 of ~9,600 window TRs, mostly tunnel music/silence) instead of halting. (e) Comparator columns defined from Gentle words/phones/transcript punctuation, Praat F0 and log power of the stimulus audio, and wordfreq 3.1.1 English frequencies (exogenous). (f) The encoding null circularly shifts the analysis rows of each segment's lagged GPT-2 design (after the two common edge rows are dropped), one shift per segment per draw shared across folds and targets; selection nulls draw per-segment shifts once and are reused across folds. These are exact reformulations enabling a CPU run, with equivalence tests against the reference implementation. (g) LANG parcels PSROI/SFROI were a label-string artifact for MMP parcels PSL/SFL. Gate thresholds unchanged."
+    },
+    {
+      "version": "1.4.0",
+      "date": "2026-10-25",
+      "note": "Before any real Narratives Stage A: implement a separate local-only surface-vertex engine, not the Natural Stories fROI script. Resolve unspecified estimator details: fixed positive ridge penalties rather than data-selected penalties; train-only feature scaling; per-segment group-target z-scoring; identity-stable disjoint subject halves with >=2 subjects each; cross-family generated-target cross-fitting; drop two common residual-lag edge rows. Use actual original-TR GPT-2/baseline history, no circular padding. One-ring erosion is at each network's atlas perimeter. Gate 1/2 use mean vertex Pearson correlations concatenated over eligible held-out segments, equally weighted vertices, without additional ceiling-derived story weights. Gate 2 has one primary test. Gate 3 uses equal-family mean within-story mean-vertex paired differences and a conditional family/circular-block bootstrap, not full-pipeline uncertainty. Feature-shift null refits encoding with coherent story shifts across folds and holds BOLD-only selection/nuisance fits fixed; independent segment shifts assume segment-wise stationarity. Gate thresholds unchanged. Do not claim that subject splitting fixes noisy-predictor attenuation. All-layer profiles, Gate 4, ceilings and sensitivity analyses remain pending and cannot be represented as completed. Real run is blocked until the complete bilateral Regime C pool, certified alignment, pretrained GPT-2 features and nine-column exogenous comparator exist and the config is frozen."
+    },
+    {
+      "version": "1.3.0",
+      "date": "2026-10-25",
+      "note": "Before Narratives Stage A: replace heuristic Gate 1 cutoffs LANG r >= 0.10 and raw MD r >= 0.06 with a positive within-story circular-shift permutation test for each network (BH-FDR across the two Gate 1 network tests, q < 0.05) AND r >= 0.04 for each. The 0.04 floor is a practical planning choice near the approximate uncorrected critical r of 0.041, not an empirically calibrated FDR threshold. Shain observations are reference-only; no validated Narratives raw-network expected values have been computed. Clarify that this config is an unimplemented, unfrozen specification, not a completed Narratives analysis."
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-10-24",
+      "note": "Original gates. Thresholds informed by the Shain/OSF eyp8q GPT-2 result (layer 9, residual MD r = 0.078)."
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-10-24",
+      "note": "Revised after replacing leave-one-out ISC with N-invariant pairwise ISC. Added ceiling-attenuated effect budget and pairwise-rho gating."
+    },
+    {
+      "version": "1.2.0",
+      "date": "2026-10-25",
+      "note": "Revised before running Stage A. (a) Decision rules aligned with power: significance plus a minimum effect near the critical value, replacing a point-estimate threshold equal to the hypothesised effect. (b) Gate 3 uses a clustered paired bootstrap over stories instead of a fixed delta-r plus p<0.05. (c) Gate 4 becomes a non-gating diagnostic with a split-half reference. (d) Vertex selection requires a circular-shift null with FDR, pooled out-of-fold. (e) Primary layer is declared in advance. (f) Residualization uses LANG from a disjoint subject half. (g) Comparator ladder added. (h) Reconciled Shain NC_var=0.377 (no sqrt in 01_prepare_data.py) vs Narratives NC_var=0.421 / NC_r=0.644."
+    }
+  ],
+
+  "dataset": {
+    "name": "Narratives",
+    "accession": "OpenNeuro ds002345",
+    "s3_base": "https://s3.amazonaws.com/fcp-indi/data/Projects/narratives",
+    "derivative": "afni-nosmooth, fsaverage6, desc-clean",
+    "tr_seconds": 1.5,
+    "story_pool": "Regime B (15 intact tasks; schema excluded, see v1.5.0) as primary",
+    "primary_tasks": [
+      "pieman",
+      "shapesphysical",
+      "shapessocial",
+      "notthefallintact",
+      "milkyway",
+      "bronx",
+      "forgot",
+      "black",
+      "prettymouth",
+      "sherlock",
+      "merlin",
+      "21styear",
+      "tunnel",
+      "slumlordreach",
+      "lucy"
+    ],
+    "included_tasks_regime_c": [
+      "pieman",
+      "shapesphysical",
+      "shapessocial",
+      "notthefallintact",
+      "milkyway",
+      "bronx",
+      "forgot",
+      "black",
+      "prettymouth",
+      "sherlock",
+      "merlin",
+      "schema",
+      "21styear",
+      "tunnel",
+      "slumlordreach",
+      "lucy"
+    ],
+    "excluded": [
+      "schema (no public transcripts/word alignments; participant-specific non-TR-locked onsets)",
+      "piemanpni (merged into the Pie Man fold)",
+      "notthefalllongscram",
+      "notthefallshortscram"
+    ],
+    "story_families_grouped_in_cv": [
+      ["pieman", "piemanpni"],
+      ["notthefallintact"],
+      ["shapesphysical", "shapessocial"],
+      ["milkyway_original", "milkyway_vodka", "milkyway_synonyms"],
+      ["prettymouth_affair", "prettymouth_paranoia"],
+      ["slumlordreach_slumlord", "slumlordreach_reach"]
+    ],
+    "trim_tr": {
+      "start": 10,
+      "end": 5
+    },
+    "preprocessing": "linear detrend, within-run z-score"
+  },
+
+  "model": {
+    "name": "gpt2",
+    "context_window_tr": 5,
+    "lags_tr": [1, 2, 3, 4],
+    "primary_layer": 9,
+    "primary_layer_rationale": "Declared in advance from the Shain gate profile, not chosen on Narratives. Gate decisions use this layer only.",
+    "secondary_layers_report_only": [6, 12],
+    "all_layer_profile": "Reported for all 12 layers with BH-FDR across layers. Exploratory, never used to pass a gate."
+  },
+
+  "targets": {
+    "levels": {
+      "primary": "vertex (group-mean, reliable vertices only)",
+      "secondary": "parcel (group-mean, weighted)"
+    },
+    "networks": {
+      "LANG": "Glasser, 13 parcels/hemi",
+      "MD": "Glasser, 14 parcels/hemi",
+      "EAC_control": "Glasser, 5 parcels/hemi",
+      "LANG_parcels_per_hemi": ["44", "45", "47l", "55b", "STGa", "STSda", "STSdp", "STSva", "STSvp", "PSL", "SFL", "TGd", "TE1a"],
+      "MD_parcels_per_hemi": ["i6-8", "8C", "p9-46v", "a9-46v", "IFJp", "8BM", "SCEF", "AVI", "IP1", "IP2", "MIP", "LIPd", "AIP", "PFm"],
+      "EAC_parcels_per_hemi": ["A1", "LBelt", "MBelt", "PBelt", "RI"],
+      "overlap_vertices_removed": true,
+      "border_buffer_removed": "1-ring erosion of each network's atlas perimeter using supplied fsaverage6 triangles (sensitivity: 0-ring vs 1-ring)"
+    },
+    "reliability_statistic": "pairwise ISC rho_hat = ((1/T) * sum_t S(t)^2 - N) / (N * (N - 1)), S(t) = sum_i z_i(t)",
+    "vertex_selection": {
+      "computed": "inside training folds only, rho_hat pooled over training stories with weights proportional to T_eff,s",
+      "null": "circular shift of each subject's time series independently within story, n_null = 200 or more",
+      "criterion": "BH-FDR q < 0.05 within each network AND rho_hat >= 0.015 as a practical floor",
+      "note": "Do not quote single-story counts as pooled evidence. Single-story N=10 pieman yielded 0 / 3405 MD vertices at q < 0.05 with 200 shifts. Pooled selection power is not established; zero selected vertices yields NOT_EVALUABLE, not invented scores. T_eff weights use each training segment's group-mean target ACF1, clipped to [1,T], as an operational approximation."
+    },
+    "parcel_weights": "w_p proportional to max(rho_hat_train(p), 0)",
+    "story_weights": "Primary Gate 1/2: concatenate per-segment standardized held-out predictions/targets for each vertex over folds where selected; average Pearson r equally over vertices with coverage. No additional ceiling-derived weights. Report each fold's support. Gate 3: equal families, equal segments within family, equal selected vertices within segment."
+  },
+
+  "cv": {
+    "scheme": "leave-one-story-out, families grouped",
+    "predictions": "held-out predictions concatenated across eligible folds after per-segment z-scoring for Gate 1/2; no missing-vertex zero imputation",
+    "permutation_null": "Within-segment circular shift of the entire lagged GPT-2 design, minimum circular distance 10 TR. One shift per segment shared across all CV appearances and all targets. Refit encoding each draw; BOLD-only selection/residualization held fixed. Independent shifts across related segments assume segment-wise stationarity. n_perm >= 999."
+  },
+
+  "residualization": {
+    "method": "Identity-hash participant assignment shared across all cohorts, >=2 participants per half per story, both directions over 20 valid splits. Fixed full-atlas LANG parcel means (not outcome-selected LANG covariates) predict selected MD vertices. Outer-training residual targets use inner leave-family-out nuisance fits; held-out residual targets use all outer-training stories. Average directional residuals, discard first two nuisance-lag rows and standardize each segment. Encoding targets are generated cross-fitted targets, not an errors-in-variables correction.",
+    "lang_lags_tr": [0, 1, 2],
+    "n_random_splits": 20,
+    "rationale": "Reduces shared same-subject nuisance; does NOT eliminate measurement-error attenuation, ridge under-removal or all shared physiological noise. Training residuals and held-out residuals have different nuisance-fit sample sizes; this generated-target estimator must be reported. Do not interpret residual prediction as proof of uniquely MD computations."
+  },
+
+  "power": {
+    "t_eff_regime_c": 2270.8,
+    "t_eff_regime_b": 2080.2,
+    "approx_se_r": "1 / sqrt(T_eff), about 0.021 to 0.022",
+    "critical_r_two_sided_alpha_0_05": 0.041,
+    "effect_budget_observed_r": "0.060 to 0.082 under the reconciled Shain-transfer assumption",
+    "ceiling_reconciliation_note": "RECONCILED: In Idea1POC/01_prepare_data.py (line 254), Shain's 'nc_md_mean = 0.3768' was computed via spearman_brown(r_half) = 2*r_half/(1+r_half), which is NC_var (variance reliability, no square root), corresponding to a correlation ceiling NC_r = sqrt(0.3768) = 0.614. In Narratives Regime C, T_eff-weighted mean NC_var = 0.421 and NC_r = 0.644. Thus Shain's residual MD effect (r_obs = 0.0784) represents r / NC_var = 0.208 and r / NC_r = 0.128, transferring to Narratives as r_expected ≈ 0.082 (if group-parcel match holds) or ~0.060 (after accounting for group-atlas vs subject-localizer dilution).",
+    "do_not_gate_on": "observed r >= hypothesised effect. At r_true = 0.0625, gating on r_obs >= 0.060 passes only 54.7% of the time, whereas gating on q < 0.05 AND r_obs >= 0.040 passes 84.5% of the time (and 96.0% at r_true = 0.078)."
+  },
+
+  "gates": {
+    "gate_1_baseline_sanity": {
+      "blocking": true,
+      "rule": "q_LANG < 0.05 AND r_LANG >= 0.04 AND q_MD_raw < 0.05 AND r_MD_raw >= 0.04 on held-out stories at the primary layer",
+      "statistic": "Mean held-out per-target Pearson r, separately for LANG and raw MD, at the primary target level and primary layer; identical statistic for observed and null results.",
+      "permutation_test": {
+        "null": "Coherent within-segment GPT-2-design shifts as specified in cv.permutation_null, with encoding refitted. One transformation shared by all network targets; condition on BOLD-only selection and residualization.",
+        "alternative": "greater (positive prediction correlation)",
+        "n_perm_min": 999,
+        "p_value": "(1 + number of null statistics >= observed statistic) / (n_perm + 1)",
+        "multiple_testing": "Benjamini-Hochberg adjustment across exactly the two primary Gate 1 network tests: LANG and raw MD. Secondary target levels and layers cannot rescue a failure."
+      },
+      "minimum_r": 0.04,
+      "q_threshold": 0.05,
+      "floor_rationale": "Practical minimum near the approximate uncorrected critical r = 0.041 from the EDA planning calculation. Actual significance must come from permutations with the stated BH adjustment; the approximation does not establish achieved power.",
+      "reference_only": {
+        "source": "Idea1POC/results/gate_gpt2_L9_lag0_screen.json, A_encoding; Natural Stories fROI screening run, layer 9, lag 0 (not matched to Narratives lags 1..4 or surface vertices)",
+        "shain_observed_r_LANG": 0.1340116434592342,
+        "shain_observed_r_MD_raw": 0.0987,
+        "narratives_expected_r_LANG": null,
+        "narratives_expected_r_MD_raw": null,
+        "interpretation": "Shain observations are contextual anchors, not validated Narratives expectations or pass/fail criteria. The residual-MD transfer assumption in power is not a raw-MD expectation."
+      },
+      "reporting": "Show observed r, permutation p, adjusted q, minimum r, and pass/fail for each network. Display reference-only Shain observations and Narratives expectations (not estimated when null) beside the results."
+    },
+    "gate_2_separability_from_LANG": {
+      "blocking": true,
+      "statistic": "mean r of GPT-2 prediction of MD residualised on held-out-half LANG",
+      "pass_rule": "permutation q < 0.05 AND observed r >= 0.04",
+      "verdict_bands": {
+        "NO_GO": "q >= 0.05 or r < 0.04",
+        "SUBTLE_GO": "0.04 <= r < 0.06 with q < 0.05, use orthogonalised loss and many seeds in Stage B",
+        "GO": "r >= 0.06 with q < 0.05"
+      },
+      "multiple_testing": "One declared primary residual-MD test; q=p for this singleton family. Secondary layers cannot rescue a primary failure.",
+      "also_report": "both r / NC_r and r / NC_var with bootstrap CI (not yet implemented; do not fabricate)"
+    },
+    "gate_3_increment_over_baselines": {
+      "blocking": true,
+      "statistic": "Equal-family mean of within-story mean selected-vertex Pearson-r differences, GPT2 minus extended comparator, on identical folds/supports",
+      "inference": "Conditional paired bootstrap with families as clusters and paired circular blocks of 10 TR within segment, B = 10000. Selection and fitted models held fixed; not a full-pipeline uncertainty interval.",
+      "pass_rule": "95 percent CI lower bound for delta_r vs the primary comparator > 0",
+      "primary_comparator": "extended low-level model (voiced fraction, word rate, word length, unigram surprisal, plus phoneme or syllable rate, pitch, energy, word frequency, sentence boundary), refit leave-one-story-out over the full pool",
+      "claim_ladder": [
+        "beats extended low-level: 'beyond low-level acoustic and lexical features'",
+        "also beats static word embeddings: 'beyond lexical semantics'",
+        "also beats untrained GPT-2: 'beyond architecture and tokenisation'",
+        "also beats word-shuffled GPT-2: 'depends on word order and context'"
+      ],
+      "comparators_report_with_CI": [
+        "static word embeddings (window mean)",
+        "untrained GPT-2",
+        "word-shuffled GPT-2 windows"
+      ]
+    },
+    "gate_4_subspace_diagnostic": {
+      "blocking": false,
+      "statistic": "mean cosine of first 5 principal angles, LANG vs MD ridge weight subspaces",
+      "reference": "same statistic between LANG weights fit on two disjoint subject halves (split-half ceiling), plus a permuted-MD-target null",
+      "reporting": "bootstrap CI over stories for MD-vs-LANG minus LANG split-half. Interpret only if the CI excludes zero.",
+      "rationale": "A first principal angle is a maximum overlap and is high for almost any pair of subspaces, so a fixed 0.85 cutoff is not interpretable. Shain layer 9 gave 0.82."
+    }
+  },
+
+  "execution": {
+    "engine": "narratives_stage_a_v1",
+    "settings": {
+      "seed": 42,
+      "selection_nulls": 1999,
+      "encoding_nulls": 999,
+      "subject_splits": 20,
+      "bootstrap_draws": 10000,
+      "rho_floor": 0.015,
+      "selection_q": 0.05,
+      "minimum_r": 0.04,
+      "gate_q": 0.05,
+      "encoding_alpha": 100.0,
+      "residual_alpha": 1.0
+    },
+    "penalty_policy": "Fixed before real data analysis; no tuning on outer-held-out stories. Both designs use the same encoding alpha after train-only column scaling.",
+    "incomplete_reports": ["Gate 4", "noise-ceiling normalization", "secondary/all-layer profiles", "sensitivity analyses", "static/untrained/shuffled comparators"],
+    "run_eligibility": "Complete verified bilateral Regime C dataset, strict real feature metadata, nine extended comparator columns, and frozen committed specification required. Passing primary gates is not an unconditional Stage B authorization."
+  },
+
+  "sensitivity_analyses_report_always": [
+    "rho_hat floor 0.010, 0.015, 0.025",
+    "alternative MD definitions (Assem core parcels, Fedorenko 2013 MD map, strict core subset)",
+    "smoothed vs unsmoothed surface data",
+    "Regime B vs Regime C story pool",
+    "parcel-level vs vertex-level targets",
+    "intact vs scrambled check on LANG parcels (validation, scrambled runs never enter encoding folds)",
+    "Shain per-subject-localizer cross-check"
+  ],
+
+  "reporting_commitments": [
+    "Report the result whichever way it goes. NO-GO is a valid finding (LANG and MD not separable under linear readout).",
+    "State alignment is defined as linear predictivity.",
+    "State limitations: group-level MD definition, group-mean regime only, GPT-2 only unless more models are run, parcel-vs-vertex differences from the anchor paper.",
+    "Do not describe Stage B results unless Stage B has been run."
+  ]
+}
