@@ -71,6 +71,7 @@ NETWORKS = ("LANG", "MD", "EAC")
 FAMILIES = {"piemanpni": "pieman", "notthefallintact": "notthefall",
             "shapesphysical": "shapes", "shapessocial": "shapes",
             "notthefalllongscram": "notthefall", "notthefallshortscram": "notthefall"}
+CONDITION_STIMULI = ("milkyway", "prettymouth")
 
 
 class PreparationError(ValueError):
@@ -529,7 +530,9 @@ def build_plan(inputs, zero_ring=False):
                 except PreparationError as error:
                     blockers.append(f"{scan['scan_id']}/{hemisphere}: {error}")
             for segment in segments:
-                signature = (segment["task"], segment["family"], segment["condition"], tuple(segment["tr_indices"]),
+                # Listener conditions with one shared stimulus (exposure order, prior movie) pool into one segment.
+                condition = segment["condition"] if segment["task"] in CONDITION_STIMULI else None
+                signature = (segment["task"], segment["family"], condition, tuple(segment["tr_indices"]),
                              segment["event"]["onset"], segment["event"]["duration"])
                 story = stories.setdefault(segment["name"], dict(segment, signature=signature, scans=[]))
                 if story["signature"] != signature or any(previous["subject"] == scan["subject"] for previous in story["scans"]):
@@ -605,7 +608,8 @@ def prepare(inputs, plan, output):
                 tr_indices=story["tr_indices"], features=feature_path,
                 trim_start=inputs.config["trim_start"], trim_end=inputs.config["trim_end"],
                 tr_seconds=1.5, preprocessing="segment_linear_detrend_population_zscore",
-                condition=story["condition"], event=story["event"],
+                condition=story["condition"] if story["task"] in CONDITION_STIMULI else "pooled",
+                scan_conditions=[scan["condition"] for scan in story["scans"]], event=story["event"],
                 event_ref=story.get("event_ref"), timing_evidence=story.get("evidence"),
                 scan_ids=[scan["scan_id"] for scan in story["scans"]]))
         for path in list(inputs.hashes):

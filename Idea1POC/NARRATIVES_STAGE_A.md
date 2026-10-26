@@ -2,6 +2,20 @@
 
 ## Status
 
+Update 2026-10-26: real inputs are built and the specification is frozen.
+- Config v1.5.0 frozen in local commit `57feb11` (not pushed), before any
+  brain-to-model fitting. Primary pool: 15 tasks / 19 segments (schema excluded:
+  no public word alignments). See the v1.5.0 changelog for every input decision.
+- `narratives_download.py`: 1,242 first-exposure bilateral GIFTIs (146.7 GB).
+- `narratives_build_inputs.py`: per-scan BIDS timing evidence (identical within
+  every task/condition, 621 scans), 0 ms Gentle-to-stimulus audio lag for all 17
+  stimulus files, word timings, nine-column comparator, local GPT-2 revision
+  `607a30d…` layer-9 features, and the hash-pinned `prepare.json` (1,274 inputs).
+- On Windows, launch long runs through `conda.exe run -n ns-implem`; calling the
+  environment's `python.exe` directly fails to load the BLAS/LAPACK DLLs.
+
+## Status (2026-10-25)
+
 The separate preparation, feature and primary-gate engine are implemented and
 software-tested. No real Narratives primary encoding experiment has been run.
 Synthetic test fixtures are not scientific findings. The original numbered

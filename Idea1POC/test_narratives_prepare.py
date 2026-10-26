@@ -368,6 +368,30 @@ class PreparationIntegrationTests(unittest.TestCase):
                                         for path in self.root.rglob("*") if path.is_file() and path != self.config_path}
         self.write_json("prepare.json", self.config)
 
+    def test_shared_stimulus_conditions_pool_but_condition_stimuli_stay_separate(self):
+        task_meta = {"pieman": {"sub-001": record(runs=(1,), condition="naive"),
+                                "sub-002": record(subject="sub-002", runs=(1,), condition="movie")},
+                     "milkyway": {"sub-001": record(task="milkyway", runs=(None,), condition="vodka"),
+                                  "sub-002": record(task="milkyway", subject="sub-002", runs=(None,), condition="original")}}
+        self.write_json("task_meta.json", task_meta)
+        self.write_json("event_meta.json", {"pieman": {"pieman": {"onset": 2, "duration": 12}},
+                                            "milkyway": {"milkyway": {"onset": 2, "duration": 12}}})
+        self.write_json("evidence.json", {"source": "synthetic fixture"})
+        self.config["tasks"] = ["pieman", "milkyway"]
+        self.config["event_mappings"] = {f"milkyway/{condition}": [dict(
+            name=f"milkyway_{condition}", family="milkyway", event_ref=["milkyway", "milkyway"], evidence="evidence.json")]
+            for condition in ("vodka", "original")}
+        data = np.random.default_rng(22).normal(size=(16, N_VERTICES)).astype(np.float32)
+        for scan in select_scans(task_meta, {})[0]:
+            for hemi in ("L", "R"):
+                save_gifti(cache_path(self.root / "cache", scan, hemi), [data], [2001], hemi)
+        self.pin_all()
+        plan = build_plan(Inputs(self.config_path))
+        self.assertEqual(plan["blockers"], [])
+        self.assertEqual(sorted(plan["stories"]), ["milkyway_original", "milkyway_vodka", "pieman"])
+        self.assertEqual([scan["subject"] for scan in plan["stories"]["pieman"]["scans"]], ["sub-001", "sub-002"])
+        self.assertEqual(len(plan["stories"]["milkyway_vodka"]["scans"]), 1)
+
     def test_primary_real_format_pipeline_contract(self):
         source_story = dict(name="pieman", event=dict(onset=2, duration=12), tr_indices=list(range(3, 13)))
         np.savez(self.root / "features.npz", **feature_fixture(source_story))

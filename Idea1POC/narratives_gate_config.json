@@ -1,13 +1,18 @@
 {
-  "_status": "UNFROZEN v1.5.0. Real inputs built (15-task pool, verified timing, GPT-2 layer-9 and nine-column comparator features); no real Stage A analysis has been run. Freeze and commit before the first real run.",
-  "version": "1.5.0",
-  "supersedes": "1.4.0",
+  "_status": "UNFROZEN v1.5.1. Real inputs built (15-task pool, verified timing, GPT-2 layer-9 and nine-column comparator features); no real Stage A analysis has been run. Freeze and commit before the first real run.",
+  "version": "1.5.1",
+  "supersedes": "1.5.0",
   "last_revised_date": "2026-10-26",
-  "frozen_at": "2026-10-26T21:50:05+05:30",
+  "frozen_at": "2026-10-26T22:03:56+05:30",
   "git_commit_before_first_run": "<commit hash, fill when committed>",
   "freeze_rule": "Freeze and commit this specification before the first real narratives_stage_a.py analysis. Synthetic software tests and read-only input checks are not scientific runs. Any later decision-rule change needs a new version, dated reason, and preservation of earlier results.",
 
   "changelog": [
+    {
+      "version": "1.5.1",
+      "date": "2026-10-26",
+      "note": "Before any model fitting; preparation stopped in planning (no BOLD tensors written, no encoding run) because listener conditions were treated as different stories. merlin and sherlock (movie vs naive), notthefallintact (heard before/after a scrambled version) and shapes (six listening orders) use identical audio and per-scan event timing across conditions (verified in timing_evidence.json), so their conditions are pooled into one segment per story, matching the participant counts used in planning; each scan's condition is recorded in the manifest. milkyway (different audio per condition) and prettymouth (different interpretive context) stay condition-specific segments. Prior exposure (movie, scrambled version) is an uncontrolled within-segment difference, not modelled. v1.5.0 was frozen in local commit 57feb11 and superseded before use."
+    },
     {
       "version": "1.5.0",
       "date": "2026-10-26",
