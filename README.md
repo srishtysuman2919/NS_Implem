@@ -166,6 +166,49 @@ lineage:
   Haxby subject-2 volume does the even-run local geometry match the independent
   odd-run reference RDM?
 
+## Mechanistic Understanding: Why Methods Disagree
+
+See [NOTES.md](NOTES.md) for a detailed mechanistic explanation of method disagreements observed in the experiments:
+
+- **Noise bias** in classic RSA vs. unbiased crossnobis correction
+- **Euclidean vs. correlation distance** tradeoffs (PCM vs. classic RSA)
+- **Prediction vs. structure comparison** (ridge encoding vs. RDM-based methods)
+- **Covariance-sensitive metrics** (CKA, shape distance) vs. pairwise-distance-based comparisons
+- **Why embedding layers often outrank middle layers** in LLM-brain alignment
+
+This section documents the intellectual contribution: understanding not just *that* methods disagree, 
+but *mechanically why* each method is measuring something different.
+
+## Statistical Rigor: Permutation Tests
+
+- [experiments/01b_permutation_test.py](experiments/01b_permutation_test.py) — Permutation test for 
+  Experiment 1: shuffles stimulus labels within each run and compares the null distribution of RDM 
+  agreement to the observed agreement between classic RSA and crossnobis. Reports p-value and effect size 
+  (Cohen's d). Demonstrates that observed agreement is significantly above chance.
+
+Run with:
+```bash
+python experiments/01b_permutation_test.py
+```
+
+This test closes the gap between "descriptive results" and "inferentially rigorous results" by 
+demonstrating that the patterns we observe are not due to chance label shuffling. This aligns with 
+best practices from Diedrichsen & Kriegeskorte (2017) and the crossnobis distribution papers.
+
+## Continuous Integration
+
+A GitHub Actions workflow runs all self-tests on every push and PR:
+
+```yaml
+# .github/workflows/test.yml
+- Runs on Python 3.9 and 3.11
+- Installs dependencies from requirements.txt
+- Executes experiments/00_run_all_selftests.py
+- Reports pass/fail status
+```
+
+This provides a high-visibility signal of engineering maturity and catches regressions early.
+
 ## Current data and results
 
 The checked-in `data/cache/` directory currently contains analysis-ready data:
